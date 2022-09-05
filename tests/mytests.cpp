@@ -9,7 +9,9 @@
 
 #include <errno.h>
 
-int main()
+#include <gtest/gtest.h>
+
+TEST(myfunctions, test)
 {
     int ssh_port = 1234;
     int nbytes, nwritten;
@@ -58,5 +60,11 @@ int main()
         exit(1);
     }
     
-    return 0;
+    GTEST_ASSERT_EQ(1, 1);
+}
+
+int main(int argc, char* argv[])
+{
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
