@@ -3,7 +3,7 @@ project(bbServer VERSION 0.1.0)
 
 include(CTest)
 enable_testing()
-add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/extern") # add googletest subdirectory
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/extern/googletest") # add googletest subdirectory
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/extern/googletest/googletest/include") # this is so we can #include <gtest/gtest.h>
 add_executable(mytests "${CMAKE_CURRENT_SOURCE_DIR}/tests/mytests.cpp") # add this executable
 
