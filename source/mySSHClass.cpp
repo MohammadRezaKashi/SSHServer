@@ -135,7 +135,7 @@ void mySSHClass::CreateSession(int server_port, char *server_address, char *rsa_
         exit(1);
     }
 
-    ssh_session session = ssh_new();
+    session = ssh_new();
     if (ssh_bind_accept(sshbind, session) == SSH_ERROR)
     {
         fprintf(stderr, "Error accepting a connection: %s\n", ssh_get_error(sshbind));
@@ -168,7 +168,7 @@ int mySSHClass::Forwarding(const char *address, int port)
         exit(-1);
     }
 
-    rc = ssh_userauth_password(my_ssh_session, "kourosh", "allesISTperfekt");
+    rc = ssh_userauth_password(my_ssh_session, "kourosh", "1992");
     if (rc != SSH_AUTH_SUCCESS)
     {
         fprintf(stderr, "Error authenticating with password: %s\n",
@@ -192,7 +192,7 @@ int mySSHClass::Forwarding(const char *address, int port)
         exit(1);
     }
 
-    rc = ssh_channel_open_forward(channel, "localhost", 8080, "localhost", 2000);
+    rc = ssh_channel_open_forward(channel, "localhost", 8080, "localhost", 4200);
     if (rc != SSH_OK)
     {
         fprintf(stderr, "Error: %s\n", ssh_get_error(my_ssh_session));
@@ -200,13 +200,20 @@ int mySSHClass::Forwarding(const char *address, int port)
         exit(1);
     }
 
-    nbytes = ssh_channel_read(channel, buffer, sizeof(buffer), 0);
-    if (nbytes < 0)
-        return SSH_ERROR;
+    do
+    {
+        nbytes = ssh_channel_read(channel, buffer, sizeof(buffer), 0);
+        if (nbytes < 0)
+            return SSH_ERROR;
 
-    nwritten = ssh_channel_write(channel, buffer, nbytes);
-    if (nwritten != nbytes)
-        return SSH_ERROR;
+            printf("Read buffer is %s", buffer);
+
+        nwritten = ssh_channel_write(channel, buffer, nbytes);
+        if (nwritten != nbytes)
+            return SSH_ERROR;
+
+            printf("Write buffer is %s", buffer);
+    } while (buffer);
 
     return SSH_OK;
 }

@@ -16,7 +16,7 @@ Run following instructions to build the project
 Run following instructions to connect to the server
 + `ssh-keygen -t rsa`
 + `cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys`
-+ `ssh -i ~/.ssh/id_rsa -p 1234 -N -R 8080:localhost:4200 sophie@localhost`
++ `ssh kourosh@localhost -p 1234 -N -R 8080:localhost:4200`
 
 
 ## Project Status
